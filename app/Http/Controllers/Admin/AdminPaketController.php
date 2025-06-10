@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\PaketMembership;
 
 class AdminPaketController extends Controller
 {
@@ -12,7 +13,8 @@ class AdminPaketController extends Controller
      */
     public function index()
     {
-        //
+        $pakets = \App\Models\PaketMembership::all();
+        return view('admin.paket.index', compact('pakets'));
     }
 
     /**
@@ -20,7 +22,7 @@ class AdminPaketController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.paket.create');
     }
 
     /**
@@ -65,7 +67,8 @@ class AdminPaketController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $paket = \App\Models\PaketMembership::findOrFail($id);
+        return view('admin.paket.edit', compact('paket'));
     }
 
     /**
@@ -73,7 +76,29 @@ class AdminPaketController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'nama_paket' => 'required|string|max:255',
+            'durasi' => 'required|string',
+            'harga' => 'required|integer',
+        ]);
+
+        $lama_hari = match ($request->durasi) {
+            '1 Bulan' => 30,
+            '3 Bulan' => 90,
+            '6 Bulan' => 180,
+            '1 Tahun' => 365,
+            default => 0
+        };
+
+        $paket = \App\Models\PaketMembership::findOrFail($id);
+        $paket->update([
+            'nama_paket' => $request->nama_paket,
+            'durasi' => $request->durasi,
+            'lama_dalam_hari' => $lama_hari,
+            'harga' => $request->harga,
+        ]);
+
+        return redirect()->route('admin.paket.index')->with('success', 'Paket membership berhasil diperbarui.');
     }
 
     /**
@@ -81,6 +106,9 @@ class AdminPaketController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $paket = \App\Models\PaketMembership::findOrFail($id);
+        $paket->delete();
+
+        return redirect()->route('admin.paket.index')->with('success', 'Paket membership berhasil dihapus.');
     }
 }

@@ -5,7 +5,7 @@
             <h2 class="text-xl font-bold mb-4">WellNest</h2>
             <ul class="space-y-2">
                 <li><a href="#" class="hover:text-gray-300">Overview</a></li>
-                <li><a href="#" class="hover:text-gray-300">Paket Membership</a></li>
+                <li><a href="{{ route('admin.paket.index') }}" class="hover:text-gray-300">Paket Membership</a></li>
                 <li><a href="#" class="hover:text-gray-300">Verifikasi Pembayaran</a></li>
                 <li><a href="#" class="hover:text-gray-300">Artikel</a></li>
             </ul>
