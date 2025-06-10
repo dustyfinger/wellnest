@@ -62,6 +62,10 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 
 Route::get('/paket', [MembershipController::class, 'index'])->name('user.paket.index');
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/membership/form', [MembershipController::class, 'form'])->name('membership.form');
+    Route::post('/membership', [MembershipController::class, 'store'])->name('membership.store');
+});
 
 
 require __DIR__.'/auth.php';

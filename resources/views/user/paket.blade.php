@@ -5,7 +5,7 @@
                 <h2 class="text-xl font-bold mb-2">{{ $p['nama'] }}</h2>
                 <p>Durasi: {{ $p['durasi'] }}</p>
                 <p class="text-green-600 font-semibold mt-2">Rp {{ number_format($p['harga'], 0, ',', '.') }}</p>
-                <a href="#" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-lg">Pilih Paket</a>
+                <a href="{{ route('membership.form') }}" class="mt-4 inline-block bg-blue-600 text-black px-4 py-2 rounded-lg">Pilih Paket</a>
             </div>
         @endforeach
     </div>

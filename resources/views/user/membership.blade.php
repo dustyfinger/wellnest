@@ -6,6 +6,16 @@
 <div class="max-w-3xl mx-auto bg-white p-6 rounded shadow">
     <h2 class="text-xl font-semibold mb-4">Pilih Paket Membership</h2>
 
+    @if ($errors->any())
+    <div class="bg-red-100 text-red-700 p-4 mb-4 rounded">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
     <form action="{{ route('membership.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
@@ -24,9 +34,16 @@
                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
         </div>
 
-        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        <button type="submit" class="bg-blue-600 text-black px-4 py-2 rounded hover:bg-blue-700">
             Kirim Bukti
         </button>
+
+        @if (session('success'))
+        <div class="bg-green-100 text-green-800 p-2 rounded mb-4">
+            {{ session('success') }}
+        </div>
+        @endif
+
     </form>
 </div>
 @endsection
