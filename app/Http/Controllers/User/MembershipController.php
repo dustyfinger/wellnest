@@ -10,12 +10,14 @@ use App\Models\Membership;
 
 class MembershipController extends Controller
 {
+    // untuk menampilkan paket membership
     public function index()
     {
         $paket = PaketMembership::all();
         return view('user.paket', compact('paket'));
     }
 
+    // form pembayaran (upload bukti transfer)
     public function form()
     {
         $paketMembership = PaketMembership::all();
@@ -24,12 +26,6 @@ class MembershipController extends Controller
 
     public function store(Request $request)
     {
-
-        \Log::debug('MASUK STORE MEMBERSHIP');
-        \Log::debug($request->all());
-        \Log::debug('USER:');
-        \Log::debug(auth()->user());
-
         $request->validate([
             'paket_id' => 'required|exists:paket_membership,id',
             'bukti_transfer' => 'required|file|max:2048',
@@ -54,6 +50,28 @@ class MembershipController extends Controller
         }
 
         return redirect()->route('membership.form')->with('success', 'Bukti pembayaran berhasil dikirim!');
+    }
+
+    //untuk nampilkan data pembayaran yang belum diverifikasi
+    public function verifikasiIndex()
+    {
+        $memberships = Membership::with(['user', 'paket'])->where('status', 'Menunggu')->get();
+        return view('admin.verifikasi-membership', compact('memberships'));
+    }
+
+    public function verifikasi($id, $status)
+    {
+        $membership = Membership::findOrFail($id);
+        $membership->status = $status;
+
+        if ($status === 'Aktif' && $membership->paket) {
+            $membership->tanggal_aktif = now();
+            $membership->tanggal_berakhir = now()->addDays($membership->paket->lama_dalam_hari); // pastikan relasi paket ada
+        }
+
+        $membership->save();
+
+        return redirect()->route('admin.membership.index')->with('success', 'Status berhasil diperbarui.');
     }
 
 }
