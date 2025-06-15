@@ -1,5 +1,3 @@
-use App\Http\Controllers\User\MembershipController;
-
 @extends('layouts.app')
 
 @section('title', 'Verifikasi Pembayaran')

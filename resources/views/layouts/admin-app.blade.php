@@ -15,7 +15,7 @@
                 <li><a href="{{ route('admin.paket.index') }}" class="block hover:bg-gray-700 p-2 rounded">Paket Membership</a></li>
                 <li><a href="{{ route('admin.membership.index') }}" class="block hover:bg-gray-700 p-2 rounded">Verifikasi Pembayaran</a></li>
                 <li><a href="{{ route('admin.membership.riwayat') }}" class="block hover:bg-gray-700 p-2 rounded">Riwayat Membership</a></li>
-                <li><a href="{{ url('/admin/artikel') }}" class="block hover:bg-gray-700 p-2 rounded">Pengelolaan Artikel</a></li>
+                <li><a href="{{ route('edukasi.index') }}" class="block hover:bg-gray-700 p-2 rounded">Pengelolaan Artikel</a></li>
             </ul>
         </aside>
 

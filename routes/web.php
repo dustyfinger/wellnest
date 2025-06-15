@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\MembershipController as UserMembershipController;
 use App\Http\Controllers\Admin\PaketMembershipController;
 use App\Http\Controllers\Admin\AdminPaketController;
+use App\Http\Controllers\Admin\ArtikelController as AdminArtikelController;
 
 
 Route::get('/', function () {
@@ -71,6 +72,14 @@ Route::get('/admin/riwayat-membership', [UserMembershipController::class, 'riway
 
 // Route untuk nampilin histori pembayaran membership user
 Route::get('/user/pembayaran', [UserMembershipController::class, 'riwayatUser'])->middleware('auth')->name('user.pembayaran');
+
+//route untuk artikel
+Route::prefix('edukasi')->middleware(['auth'])->group(function () {
+    Route::get('/', [AdminArtikelController::class, 'index'])->name('edukasi.index');
+    Route::post('/simpan', [AdminArtikelController::class, 'simpan'])->name('edukasi.simpan');
+    Route::put('/{id}', [AdminArtikelController::class, 'update'])->name('edukasi.update');
+    Route::delete('/{id}', [AdminArtikelController::class, 'hapus'])->name('edukasi.hapus');
+});
 
 
 require __DIR__.'/auth.php';
