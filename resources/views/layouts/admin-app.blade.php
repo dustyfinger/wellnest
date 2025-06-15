@@ -12,9 +12,10 @@
             <div class="p-4 text-lg font-bold border-b border-gray-600">WellNest</div>
             <ul class="p-4 space-y-2">
                 <li><a href="{{ route('dashboard') }}" class="block hover:bg-gray-700 p-2 rounded">Overview</a></li>
-                <li><a href="{{ route('admin.paket.index') }}" class="block hover:bg-gray-700 p-2 rounded">Pengelolaan Membership</a></li>
+                <li><a href="{{ route('admin.paket.index') }}" class="block hover:bg-gray-700 p-2 rounded">Paket Membership</a></li>
                 <li><a href="{{ route('admin.membership.index') }}" class="block hover:bg-gray-700 p-2 rounded">Verifikasi Pembayaran</a></li>
-                <li><a href="{{ url('/admin/artikel') }}" class="block hover:bg-gray-700 p-2 rounded">Artikel</a></li>
+                <li><a href="{{ route('admin.membership.riwayat') }}" class="block hover:bg-gray-700 p-2 rounded">Riwayat Membership</a></li>
+                <li><a href="{{ url('/admin/artikel') }}" class="block hover:bg-gray-700 p-2 rounded">Pengelolaan Artikel</a></li>
             </ul>
         </aside>
 

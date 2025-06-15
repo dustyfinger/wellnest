@@ -56,7 +56,7 @@ Route::get('/paket', [UserMembershipController::class, 'index'])->name('user.pak
 
 // Nampilkan form upload bukti transfer & menyimpan data membership
 Route::middleware(['auth'])->group(function () {
-    Route::get('/membership/form', [UserMembershipController::class, 'form'])->name('membership.form');
+    Route::get('/membership/form/{paket_id?}', [UserMembershipController::class, 'form'])->name('membership.form');
     Route::post('/membership', [UserMembershipController::class, 'store'])->name('membership.store');
 });
 
@@ -65,6 +65,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/verifikasi-membership', [UserMembershipController::class, 'verifikasiIndex'])->name('admin.membership.index');
     Route::post('/admin/verifikasi-membership/{id}/{status}', [UserMembershipController::class, 'verifikasi'])->name('admin.membership.verifikasi');
 });
+
+// Route buat nampilin riwayat
+Route::get('/admin/riwayat-membership', [UserMembershipController::class, 'riwayatAdmin'])->name('admin.membership.riwayat')->middleware('auth');
+
+// Route untuk nampilin histori pembayaran membership user
+Route::get('/user/pembayaran', [UserMembershipController::class, 'riwayatUser'])->middleware('auth')->name('user.pembayaran');
 
 
 require __DIR__.'/auth.php';

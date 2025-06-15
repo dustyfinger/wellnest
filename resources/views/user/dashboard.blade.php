@@ -10,7 +10,7 @@
             </a>
             <a href="{{ route('user.pembayaran') }}" class="bg-white shadow-md rounded-lg p-6 hover:bg-blue-50">
                 <h3 class="text-lg font-bold">Pembayaran</h3>
-                <p class="text-sm text-gray-600">Unggah bukti pembayaran untuk aktivasi.</p>
+                <p class="text-sm text-gray-600">Lihat status memberhsip kamu disini.</p>
             </a>
             <a href="{{ route('user.artikel') }}" class="bg-white shadow-md rounded-lg p-6 hover:bg-blue-50">
                 <h3 class="text-lg font-bold">Artikel</h3>
