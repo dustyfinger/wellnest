@@ -10,14 +10,6 @@ use App\Models\Membership;
 
 class MembershipController extends Controller
 {
-    // untuk menampilkan paket membership
-    public function index()
-    {
-        $paket = PaketMembership::all();
-        return view('user.paket', compact('paket'));
-    }
-
-    // form pembayaran (upload bukti transfer)
     public function form($paket_id = null)
     {
         $user = auth()->user();
@@ -69,49 +61,5 @@ class MembershipController extends Controller
         }
 
         return redirect()->route('membership.form')->with('success', 'Bukti pembayaran berhasil dikirim!');
-    }
-
-    //untuk nampilkan data pembayaran yang belum diverifikasi
-    public function verifikasiIndex()
-    {
-        $memberships = Membership::with(['user', 'paket'])->where('status', 'Menunggu')->get();
-        return view('admin.verifikasi-membership', compact('memberships'));
-    }
-
-    public function verifikasi($id, $status)
-    {
-        $membership = Membership::findOrFail($id);
-        $membership->status = $status;
-
-        if ($status === 'Aktif' && $membership->paket) {
-            $membership->tanggal_aktif = now();
-            $membership->tanggal_berakhir = now()->addDays($membership->paket->lama_dalam_hari); // pastikan relasi paket ada
-        }
-
-        $membership->save();
-
-        return redirect()->route('admin.membership.index')->with('success', 'Status berhasil diperbarui.');
-    }
-
-    public function riwayatAdmin()
-    {
-        $riwayat = Membership::with(['user', 'paket'])
-            ->whereIn('status', ['Aktif', 'Ditolak'])
-            ->orderBy('created_at', 'desc')
-            ->get();
-
-        return view('admin.riwayat.index', compact('riwayat'));
-    }
-
-    public function riwayatUser()
-    {
-        $user = auth()->user();
-
-        $riwayat = Membership::with('paket')
-            ->where('user_id', $user->id_pengguna)
-            ->orderByDesc('created_at')
-            ->get();
-
-        return view('user.riwayat', compact('riwayat'));
     }
 }

@@ -3,9 +3,13 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\MembershipController as UserMembershipController;
+use App\Http\Controllers\User\UserPaketController;
+use App\Http\Controllers\User\RiwayatMembershipController as UserRiwayatMembershipController;
 use App\Http\Controllers\Admin\PaketMembershipController;
 use App\Http\Controllers\Admin\AdminPaketController;
 use App\Http\Controllers\Admin\ArtikelController as AdminArtikelController;
+use App\Http\Controllers\Admin\VerifikasiMembershipController;
+use App\Http\Controllers\Admin\RiwayatMembershipController as AdminRiwayatMembershipController;
 
 
 Route::get('/', function () {
@@ -33,10 +37,11 @@ Route::middleware('auth')->group(function () {
 });
 
 // Untuk User
+// handling pembayaran
 Route::get('/membership', [UserMembershipController::class, 'index'])->middleware('auth')->name('membership.index');
 Route::post('/membership', [UserMembershipController::class, 'store'])->middleware('auth')->name('membership.store');
-
-Route::get('/user/paket', [UserMembershipController::class, 'index'])->middleware('auth')->name('user.paket');
+// handling menampilkan Paket Membership
+Route::get('/user/paket', [UserPaketController::class, 'index'])->middleware('auth')->name('user.paket');
 Route::get('/user/membership', [UserMembershipController::class, 'create'])->name('user.pembayaran'); //method ini gaada tapi kalo di akses bakal error
 Route::get('/user/artikel', [ArtikelController::class, 'index'])->name('user.artikel'); // ini harus dilanjutin nanti pas ngerjakan artikel, kalau di komen nanti error juga
 
@@ -48,30 +53,30 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Buat pengelolaan paket membership admin
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth','admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('paket', AdminPaketController::class);
 });
 
 // Menampilkan daftar paket membership di user
-Route::get('/paket', [UserMembershipController::class, 'index'])->name('user.paket.index');
+Route::get('/paket', [UserPaketController::class, 'index'])->name('user.paket.index');
 
 // Nampilkan form upload bukti transfer & menyimpan data membership
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth','user'])->group(function () {
     Route::get('/membership/form/{paket_id?}', [UserMembershipController::class, 'form'])->name('membership.form');
     Route::post('/membership', [UserMembershipController::class, 'store'])->name('membership.store');
 });
 
 // Route Verifikasi pembelian membership untuk admin
-Route::middleware(['auth'])->group(function () {
-    Route::get('/admin/verifikasi-membership', [UserMembershipController::class, 'verifikasiIndex'])->name('admin.membership.index');
-    Route::post('/admin/verifikasi-membership/{id}/{status}', [UserMembershipController::class, 'verifikasi'])->name('admin.membership.verifikasi');
+Route::middleware(['auth','admin'])->group(function () {
+    Route::get('/admin/verifikasi-membership', [VerifikasiMembershipController::class, 'verifikasiIndex'])->name('admin.membership.index');
+    Route::post('/admin/verifikasi-membership/{id}/{status}', [VerifikasiMembershipController::class, 'verifikasi'])->name('admin.membership.verifikasi');
 });
 
 // Route buat nampilin riwayat
-Route::get('/admin/riwayat-membership', [UserMembershipController::class, 'riwayatAdmin'])->name('admin.membership.riwayat')->middleware('auth');
+Route::get('/admin/riwayat-membership', [AdminRiwayatMembershipController::class, 'riwayatAdmin'])->name('admin.membership.riwayat')->middleware('auth');
 
-// Route untuk nampilin histori pembayaran membership user
-Route::get('/user/pembayaran', [UserMembershipController::class, 'riwayatUser'])->middleware('auth')->name('user.pembayaran');
+// Klik pembayaran di user => Route untuk nampilin status pembayaran membership user
+Route::get('/user/pembayaran', [UserRiwayatMembershipController::class, 'riwayatUser'])->middleware('auth')->name('user.pembayaran');
 
 //route untuk artikel
 Route::prefix('edukasi')->middleware(['auth'])->group(function () {
