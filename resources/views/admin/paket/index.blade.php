@@ -25,6 +25,13 @@
                     <td>
                         <a href="{{ route('admin.paket.edit', $paket->id) }}" class="text-blue-600">Edit</a>
                     </td>
+                    <td>
+                        <form action="{{ route('admin.paket.destroy', $paket->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus paket ini?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-red-600 bg-transparent border-none p-0 m-0 cursor-pointer">Hapus</button>
+                        </form>
+                    </td>
                 </tr>
             @endforeach
         </tbody>

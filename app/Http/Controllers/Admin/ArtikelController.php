@@ -19,7 +19,7 @@ class ArtikelController extends Controller
     {
         $validated = $request->validate([
             'judul' => 'required|string|max:255',
-            'file' => 'required|file',
+            'file' => 'required|file|mimes:txt',
         ]);
 
         $path = $request->file('file')->store('edukasi/konten', 'public');

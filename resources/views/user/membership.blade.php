@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('title', 'Membership')
+<x-user>
 
 @section('content')
 <div class="max-w-3xl mx-auto bg-white p-6 rounded shadow">
@@ -46,4 +44,4 @@
 
     </form>
 </div>
-@endsection
+</x-user>

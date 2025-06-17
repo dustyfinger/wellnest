@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\MembershipController as UserMembershipController;
 use App\Http\Controllers\User\UserPaketController;
 use App\Http\Controllers\User\RiwayatMembershipController as UserRiwayatMembershipController;
+use App\Http\Controllers\User\ArtikelController as UserArtikelController;
 use App\Http\Controllers\Admin\PaketMembershipController;
 use App\Http\Controllers\Admin\AdminPaketController;
 use App\Http\Controllers\Admin\ArtikelController as AdminArtikelController;
@@ -79,6 +80,10 @@ Route::prefix('edukasi')->middleware(['auth'])->group(function () {
     Route::put('/{id}', [AdminArtikelController::class, 'update'])->name('edukasi.update');
     Route::delete('/{id}', [AdminArtikelController::class, 'hapus'])->name('edukasi.hapus');
 });
+
+//route untuk artikel user
+Route::get('/artikel', [UserArtikelController::class, 'index'])->name('user.artikel.index');
+Route::get('/artikel/{id}', [UserArtikelController::class, 'show'])->name('user.artikel.show');
 
 //route laporan keuangan
 Route::middleware(['auth', 'admin'])->group(function () {

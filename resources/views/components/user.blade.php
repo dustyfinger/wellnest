@@ -7,9 +7,12 @@
                     Beranda
                 </x-nav-link>
                 <x-nav-link href="{{ route('user.paket') }}" :active="request()->routeIs('user.paket')">
+                    Paket Membership
+                </x-nav-link>
+                <x-nav-link href="{{ route('user.pembayaran') }}" :active="request()->routeIs('user.paket')">
                     Membership
                 </x-nav-link>
-                <x-nav-link href="{{ route('user.artikel') }}" :active="request()->routeIs('user.artikel')">
+                <x-nav-link href="{{ route('user.artikel.index') }}" :active="request()->routeIs('user.artikel')">
                     Artikel
                 </x-nav-link>
 
