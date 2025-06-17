@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <title>Admin - WellNest</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="//unpkg.com/alpinejs" defer></script>
 </head>
 <body class="bg-gray-100">
     <div class="flex">
@@ -55,5 +56,6 @@
             </main>
         </div>
     </div>
+    @stack('scripts')
 </body>
 </html>

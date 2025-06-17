@@ -10,7 +10,6 @@
             <tr class="bg-gray-100">
                 <th>Nama Paket</th>
                 <th>Durasi</th>
-                <th>Lama (Hari)</th>
                 <th>Harga</th>
                 <th>Aksi</th>
             </tr>
@@ -20,7 +19,6 @@
                 <tr>
                     <td>{{ $paket->nama_paket }}</td>
                     <td>{{ $paket->durasi }}</td>
-                    <td>{{ $paket->lama_dalam_hari }}</td>
                     <td>Rp {{ number_format($paket->harga, 0, ',', '.') }}</td>
                     <td>
                         <a href="{{ route('admin.paket.edit', $paket->id) }}" class="text-blue-600">Edit</a>

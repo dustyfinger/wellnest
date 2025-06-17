@@ -19,7 +19,10 @@
         @foreach ($data as $item)
         <div class="bg-white shadow-md rounded-lg p-4">
             <h3 class="text-lg font-semibold mb-2">{{ $item->judul }}</h3>
-            <a href="{{ asset('storage/' . $item->file_path) }}" class="text-blue-600 underline" target="_blank">Lihat Konten</a>
+            {{-- <a href="{{ asset('storage/' . $item->file_path) }}" class="text-blue-600 underline" target="_blank">Lihat Konten</a> --}}
+            <button @click="lihatKonten('{{ asset('storage/' . $item->file_path) }}')" class="text-blue-600 underline">
+                Lihat Konten
+            </button>
 
             <div class="mt-4 flex justify-between">
                 <button @click="editArtikel({ id: '{{ $item->id }}', judul: '{{ $item->judul }}'})"
@@ -65,6 +68,20 @@
             </form>
         </div>
     </div>
+
+    <!-- Modal Lihat Konten -->
+    <div x-show="showKonten" x-cloak class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div @click.outside="showKonten = false" class="bg-white p-6 rounded-lg w-full max-w-2xl max-h-[80vh] overflow-y-auto">
+            <h2 class="text-xl font-bold mb-4">Konten Artikel</h2>
+            <pre class="whitespace-pre-wrap text-gray-800" x-text="kontenArtikel"></pre>
+            <div class="mt-4 text-right">
+                <button @click="showKonten = false" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
 </section>
 @endsection
 
@@ -74,6 +91,7 @@
         Alpine.data('edukasiModal', () => ({
             showForm: false,
             editMode: false,
+            showKonten: false,
             formData: {
                 id: '',
                 judul: ''
@@ -83,6 +101,11 @@
                 this.showForm = true;
                 this.formData.id = data.id;
                 this.formData.judul = data.judul;
+            },
+            async lihatKonten(fileUrl) {
+                const res = await fetch(fileUrl);
+                this.kontenArtikel = await res.text();
+                this.showKonten = true;
             }
         }))
     })

@@ -39,8 +39,8 @@
                     @forelse($transaksi as $item)
                         <tr>
                             <td class="px-4 py-2 border">{{ $item->created_at->format('d-m-Y') }}</td>
-                            <td class="px-4 py-2 border">{{ $item->user->name ?? '-' }}</td>
-                            <td class="px-4 py-2 border">{{ $item->paket->nama ?? '-' }}</td>
+                            <td class="px-4 py-2 border">{{ $item->user->nama }}</td>
+                            <td class="px-4 py-2 border">{{ $item->paket->nama_paket }}</td>
                             <td class="px-4 py-2 border">Rp{{ number_format($item->jumlah, 0, ',', '.') }}</td>
                             <td class="px-4 py-2 border">{{ $item->status }}</td>
                         </tr>
