@@ -1,5 +1,5 @@
 <div>
-    @extends('layouts.app')
+    @extends('layouts.admin-app')
 
 @section('content')
     <h1 class="text-xl font-bold mb-4">Tambah Paket</h1>

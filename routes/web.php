@@ -10,24 +10,18 @@ use App\Http\Controllers\Admin\AdminPaketController;
 use App\Http\Controllers\Admin\ArtikelController as AdminArtikelController;
 use App\Http\Controllers\Admin\VerifikasiMembershipController;
 use App\Http\Controllers\Admin\RiwayatMembershipController as AdminRiwayatMembershipController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\LaporanKeuanganController;
 
-
+// Landing Page
 Route::get('/', function () {
     return view('V_Home');
 });
 
-
-Route::get('/dashboard', function () {
-    $user = Auth::user();
-
-    if ($user->role === 'admin') {
-        return view('admin.dashboard');
-    } elseif ($user->role === 'user') {
-        return view('user.dashboard');
-    }
-
-    abort(403, 'Akses ditolak.');
-})->middleware(['auth'])->name('dashboard');
+// Dashboard
+Route::get('/dashboard', [AdminDashboardController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('dashboard');
 
 
 Route::middleware('auth')->group(function () {
@@ -86,5 +80,9 @@ Route::prefix('edukasi')->middleware(['auth'])->group(function () {
     Route::delete('/{id}', [AdminArtikelController::class, 'hapus'])->name('edukasi.hapus');
 });
 
+//route laporan keuangan
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/laporan-keuangan', [LaporanKeuanganController::class, 'index'])->name('admin.laporan-keuangan');
+});
 
 require __DIR__.'/auth.php';
