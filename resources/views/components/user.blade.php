@@ -42,6 +42,9 @@
     </main>
 </x-guest-layout>
 
+
+{{-- ========= YANG BAWAH YG LAMA +++++++++++  --}}
+
 {{-- <x-guest-layout>
     <nav class="bg-white border-b shadow-sm">
         <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
