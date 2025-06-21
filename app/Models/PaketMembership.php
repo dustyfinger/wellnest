@@ -17,6 +17,7 @@ class PaketMembership extends Model
         'durasi',
         'lama_dalam_hari',
         'harga',
+        'deskripsi',
     ];
 
     public $timestamps = true;

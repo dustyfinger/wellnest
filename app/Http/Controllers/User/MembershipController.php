@@ -39,7 +39,7 @@ class MembershipController extends Controller
 
         $request->validate([
             'paket_id' => 'required|exists:paket_membership,id',
-            'bukti_transfer' => 'required|file|max:2048',
+            'bukti_transfer' => 'required|image|mimes:png,jpg,jpeg,svg|max:2048',
         ]);
 
         $paket = PaketMembership::findOrFail($request->paket_id);

@@ -17,6 +17,7 @@
         </select>
 
         <input type="number" name="harga" value="{{ $paket->harga }}" class="border p-2 w-full" required>
+        <textarea name="deskripsi" class="border p-2 w-full" rows="4" placeholder="Deskripsi">{{ $paket->deskripsi }}</textarea>
 
         <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Update</button>
     </form>

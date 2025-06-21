@@ -34,6 +34,7 @@ class AdminPaketController extends Controller
         'nama_paket' => 'required|string|max:255',
         'durasi' => 'required|string',
         'harga' => 'required|integer',
+        'deskripsi' => 'nullable|string|max:1000',
     ]);
 
         $lama_hari = match ($request->durasi) {
@@ -49,6 +50,7 @@ class AdminPaketController extends Controller
         'durasi' => $request->durasi,
         'lama_dalam_hari' => $lama_hari,
         'harga' => $request->harga,
+        'deskripsi' => $request->deskripsi,
     ]);
 
         return redirect()->route('admin.paket.index')->with('success', 'Paket membership berhasil ditambahkan.');
@@ -80,6 +82,7 @@ class AdminPaketController extends Controller
             'nama_paket' => 'required|string|max:255',
             'durasi' => 'required|string',
             'harga' => 'required|integer',
+            'deskripsi' => 'nullable|string|max:1000',
         ]);
 
         $lama_hari = match ($request->durasi) {
@@ -96,6 +99,7 @@ class AdminPaketController extends Controller
             'durasi' => $request->durasi,
             'lama_dalam_hari' => $lama_hari,
             'harga' => $request->harga,
+            'deskripsi' => $request->deskripsi,
         ]);
 
         return redirect()->route('admin.paket.index')->with('success', 'Paket membership berhasil diperbarui.');

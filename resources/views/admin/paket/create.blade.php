@@ -16,6 +16,7 @@
         </select>
 
         <input type="number" name="harga" placeholder="Harga" class="border p-2 w-full" required>
+        <textarea name="deskripsi" placeholder="Deskripsi Paket" class="border p-2 w-full" rows="4"></textarea>
 
         <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded">Simpan</button>
     </form>

@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('memberships', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('paket_membership', function (Blueprint $table) {
+            $table->text('deskripsi')->nullable()->after('harga');
         });
     }
 
@@ -22,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('memberships');
+        Schema::table('paket_membership', function (Blueprint $table) {
+            $table->dropColumn('deskripsi');
+        });
     }
 };
