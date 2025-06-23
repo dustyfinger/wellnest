@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use App\Models\PaketMembership;
 use App\Models\Membership;
@@ -24,7 +25,16 @@ class MembershipController extends Controller
             if ($latestMembership->status === 'Aktif' && now()->lessThan($latestMembership->tanggal_berakhir)) {
                 return redirect()->route('dashboard')->with('error', 'Membership kamu masih aktif.');
             }
-    }
+
+        if (
+            $latestMembership->status === 'Aktif' &&
+            now()->greaterThanOrEqualTo($latestMembership->tanggal_berakhir)
+        ) {
+            // Membership sudah habis masa aktifnya → ubah status menjadi 'Nonaktif'
+            $latestMembership->status = 'Nonaktif';
+            $latestMembership->save();
+        }
+            }
 
         $paketMembership = PaketMembership::all();
         $selectedPaket = $paket_id ? PaketMembership::find($paket_id) : null;
