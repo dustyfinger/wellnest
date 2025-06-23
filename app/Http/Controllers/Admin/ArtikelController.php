@@ -38,7 +38,7 @@ class ArtikelController extends Controller
 
         $validated = $request->validate([
             'judul' => 'required|string|max:255',
-            'file' => 'required|file',
+            'file' => 'required|file|mimes:txt',
         ]);
 
         if ($request->hasFile('file')) {
