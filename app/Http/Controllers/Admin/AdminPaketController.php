@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PaketMembership;
+use App\Models\Membership;
 
 class AdminPaketController extends Controller
 {
@@ -111,6 +112,16 @@ class AdminPaketController extends Controller
     public function destroy(string $id)
     {
         $paket = \App\Models\PaketMembership::findOrFail($id);
+
+        $adaAktif = \App\Models\Membership::where('paket_id', $paket->id)
+            ->where('status', 'Aktif')
+            ->exists();
+
+        if ($adaAktif) {
+            return redirect()->route('admin.paket.index')
+            ->with('error', 'Paket tidak dapat dihapus karena sedang digunakan oleh membership aktif.');
+        }
+
         $paket->delete();
 
         return redirect()->route('admin.paket.index')->with('success', 'Paket membership berhasil dihapus.');

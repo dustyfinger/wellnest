@@ -1,6 +1,18 @@
 @extends('layouts.admin-app')
 
 @section('content')
+    @if(session('error'))
+        <div class="bg-red-100 text-red-700 p-4 mb-4 rounded">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    @if(session('success'))
+        <div class="bg-green-100 text-green-800 p-4 mb-4 rounded">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <div class="bg-white rounded-lg shadow-sm p-6">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-bold text-gray-800">Daftar Paket Membership</h1>
