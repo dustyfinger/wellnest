@@ -1,3 +1,40 @@
+# WellNest — Fitness Education and Gym Membership Management Platform
+
+**WellNest** is a simple website project developed as part of the *Web-Based Programming* course.  
+It provides basic features for managing gym memberships and sharing educational content about fitness and wellness.
+
+## 🌟 Features
+- Member registration and management
+- Educational articles about fitness and health
+- Admin panel for managing content and users
+- Responsive layout
+
+## 🛠️ Built With
+- HTML
+- TailwindCSS
+- PHP
+- Laravel
+
+## 📄 Project Context
+This project was developed as an academic exercise to practice web development skills in a team setting.  
+The implementation also used AI tools for assistance during coding.
+
+## 🚀 How to Run
+1. Clone this repository:
+   ```bash
+   git clone [repository-link]
+   cd wellnest
+2. Install dependencies:
+   composer install
+   npm install && npm run dev
+3. Copy .env.example to .env and set up your database credentials.
+4. Run migrations:
+   php artisan migrate
+5. Serve the application
+   php artisan serve
+
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
